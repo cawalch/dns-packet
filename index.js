@@ -53,14 +53,16 @@ name.decode = function (buf, offset) {
     return '.'
   }
   if (len >= 0xc0) {
-    const res = name.decode(buf, buf.readUInt16BE(offset - 1) - 0xc000)
+    const newOffset = validOffset(oldOffset, (buf.readUInt16BE(offset - 1) - 0xc000))
+    const res = name.decode(buf, newOffset)
     name.decode.bytes = 2
     return res
   }
 
   while (len) {
     if (len >= 0xc0) {
-      list.push(name.decode(buf, buf.readUInt16BE(offset - 1) - 0xc000))
+      const newOffset = validOffset(oldOffset, (buf.readUInt16BE(offset - 1) - 0xc000))
+      list.push(name.decode(buf, newOffset))
       offset++
       break
     }
@@ -1538,4 +1540,9 @@ function decodeList (list, enc, buf, offset) {
     offset += enc.decode.bytes
   }
   return offset
+}
+
+function validOffset(old, newOffset) {
+  if (newOffset === old) throw new Error('Invalild Offset')
+  return newOffset
 }
