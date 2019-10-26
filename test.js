@@ -1,6 +1,5 @@
 'use strict'
 
-const fs = require('fs')
 const tape = require('tape')
 const packet = require('./')
 const rcodes = require('./rcodes')

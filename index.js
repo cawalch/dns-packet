@@ -1542,7 +1542,7 @@ function decodeList (list, enc, buf, offset) {
   return offset
 }
 
-function validOffset(old, newOffset) {
+function validOffset (old, newOffset) {
   if (newOffset === old) throw new Error('Invalild Offset')
   return newOffset
 }
