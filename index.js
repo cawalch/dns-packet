@@ -1547,7 +1547,7 @@ function decodeList (list, enc, buf, offset) {
 function validOffset (a, b) {
   // Cantor pairing
   const pair = (a + b) * (a + b + 1) / 2 + a
-  if (OFFSETS.includes(pair)) throw new Error('Invalild Offset')
+  if (OFFSETS.includes(pair)) throw new Error('Invalid Offset')
   OFFSETS.push(pair)
   return b
 }
