@@ -307,7 +307,7 @@ tape('name_encoding', function (t) {
 tape('name-invalid-data-offset', function (t) {
   const stackover = Buffer
     .from('8ad4e46c0f1b450d0080000000000400b0047dd45403c700001d1c8012007fffff057305ffdce0021e05b6fd00efc0e1007ef9107dc45540fa7e3009c0595e31e6b3ba84ee0262acc045', 'hex')
-  t.throws(function () { packet.name.decode(stackover, 69) }, /offset/)
+  t.throws(function () { packet.name.decode(stackover, 69) }, /Offset/)
   t.end()
 })
 

@@ -13,6 +13,7 @@ const FLUSH_MASK = 1 << 15
 const NOT_FLUSH_MASK = ~FLUSH_MASK
 const QU_MASK = 1 << 15
 const NOT_QU_MASK = ~QU_MASK
+const OFFSETS = []
 
 const name = exports.txt = exports.name = {}
 
@@ -73,6 +74,7 @@ name.decode = function (buf, offset) {
   }
 
   name.decode.bytes = offset - oldOffset
+  OFFSETS.pop()
   return list.join('.')
 }
 
@@ -1542,7 +1544,10 @@ function decodeList (list, enc, buf, offset) {
   return offset
 }
 
-function validOffset (old, newOffset) {
-  if (newOffset === old) throw new Error('Invalild Offset')
-  return newOffset
+function validOffset (a, b) {
+  // Cantor pairing
+  const pair = (a + b) * (a + b + 1) / 2 + a
+  if (OFFSETS.includes(pair)) throw new Error('Invalild Offset')
+  OFFSETS.push(pair)
+  return b
 }
